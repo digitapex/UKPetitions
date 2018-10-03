@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">UK Petitions</string>
+    <string name="all_petitions">All petitions</string>
+    <string name="open_petitions">Open petitions</string>
+    <string name="closed_petitions">Closed petitions</string>
+    <string name="rejected_petitions">Rejected petitions</string>
+    <string name="awaiting_government_response">Awaiting government response</string>
+    <string name="government_responses">Government responses</string>
+    <string name="awaiting_a_debate_in_parliament">Awaiting a debate in Parliament</string>
+    <string name="debated_in_parliament">Debated in Parliament</string>
+    <string name="not_debated_in_parliament">Not debated in Parliament</string>
 </resources>
