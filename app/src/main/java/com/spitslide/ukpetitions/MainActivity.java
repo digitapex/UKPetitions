@@ -40,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.content_frame, new PetitionsFragment())
+                .commit();
+
 
     }
 
