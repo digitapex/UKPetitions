@@ -12,18 +12,20 @@ import java.util.List;
 
 public class PetitionsAdapter extends RecyclerView.Adapter<PetitionsAdapter.PetitionsViewHolder> {
 
-    private List<String> data;
+    private List<PetitionItem> data;
 
-    public PetitionsAdapter(List<String> data) {
+    public PetitionsAdapter(List<PetitionItem> data) {
         this.data = data;
     }
 
     public class PetitionsViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView;
+        public TextView title;
+        public TextView signatures;
 
         public PetitionsViewHolder(View v) {
             super(v);
-            textView = v.findViewById(R.id.text_view);
+            title = v.findViewById(R.id.title);
+            signatures = v.findViewById(R.id.signatures);
         }
     }
 
@@ -36,7 +38,9 @@ public class PetitionsAdapter extends RecyclerView.Adapter<PetitionsAdapter.Peti
 
     @Override
     public void onBindViewHolder(@NonNull PetitionsViewHolder viewHolder, int position) {
-        viewHolder.textView.setText(data.get(position));
+        viewHolder.title.setText(data.get(position).getTitle());
+        String sigWithSeparator = String.format("%,d", data.get(position).getSignatureCount());
+        viewHolder.signatures.setText(sigWithSeparator);
     }
 
     @Override

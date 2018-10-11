@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,8 +37,11 @@ public class PetitionsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+        RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                layoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
-        final ArrayList<String> data = new ArrayList<>();
+        final ArrayList<PetitionItem> data = new ArrayList<>();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://petition.parliament.uk/")
@@ -50,9 +54,12 @@ public class PetitionsFragment extends Fragment {
             @Override
             public void onResponse(Call<Petitions> call, Response<Petitions> response) {
                 Petitions petitions = response.body();
-                if(petitions.getData()!=null)
+
                 for (int i = 0; i < petitions.getData().size(); i++) {
-                    data.add(petitions.getData().get(i).getAttributes().getAction());
+                    PetitionItem petitionItem = new PetitionItem();
+                    petitionItem.setTitle(petitions.getData().get(i).getAttributes().getAction());
+                    petitionItem.setSignatureCount(petitions.getData().get(i).getAttributes().getSignatureCount());
+                    data.add(petitionItem);
                 }
                 PetitionsAdapter petitionsAdapter = new PetitionsAdapter(data);
                 recyclerView.setAdapter(petitionsAdapter);
