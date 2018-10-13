@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.spitslide.ukpetitions.data.Attributes;
 import com.spitslide.ukpetitions.data.Petitions;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class PetitionsFragment extends Fragment {
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        final ArrayList<PetitionItem> data = new ArrayList<>();
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://petition.parliament.uk/")
@@ -54,13 +55,7 @@ public class PetitionsFragment extends Fragment {
             @Override
             public void onResponse(Call<Petitions> call, Response<Petitions> response) {
                 Petitions petitions = response.body();
-
-                for (int i = 0; i < petitions.getData().size(); i++) {
-                    PetitionItem petitionItem = new PetitionItem();
-                    petitionItem.setTitle(petitions.getData().get(i).getAttributes().getAction());
-                    petitionItem.setSignatureCount(petitions.getData().get(i).getAttributes().getSignatureCount());
-                    data.add(petitionItem);
-                }
+                List<PetitionItem> data = createPetitionList(petitions);
                 PetitionsAdapter petitionsAdapter = new PetitionsAdapter(data);
                 recyclerView.setAdapter(petitionsAdapter);
             }
@@ -72,6 +67,24 @@ public class PetitionsFragment extends Fragment {
         });
 
 
+    }
+
+    private List<PetitionItem> createPetitionList(Petitions petitions) {
+        final ArrayList<PetitionItem> data = new ArrayList<>();
+        for (int i = 0; i < petitions.getData().size(); i++) {
+            PetitionItem petitionItem = new PetitionItem();
+            Attributes attributesObj = petitions.getData().get(i).getAttributes();
+            petitionItem.setTitle(attributesObj.getAction());
+            petitionItem.setSignatureCount(attributesObj.getSignatureCount());
+            petitionItem.setBackground(attributesObj.getBackground());
+            petitionItem.setAdditionalDetails(attributesObj.getAdditionalDetails());
+            petitionItem.setGovResponseSummary(attributesObj.getGovernmentResponse().getSummary());
+            petitionItem.setGovResponseDetails(attributesObj.getGovernmentResponse().getDetails());
+            petitionItem.setGovDebateTranscript(attributesObj.getDebate().getTranscriptUrl());
+            petitionItem.setGovDebateVideo(attributesObj.getDebate().getVideoUrl());
+            data.add(petitionItem);
+        }
+        return data;
     }
 
 
