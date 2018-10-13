@@ -1,7 +1,9 @@
 package com.spitslide.ukpetitions;
 
 
-public class PetitionItem {
+import java.io.Serializable;
+
+public class PetitionItem implements Serializable {
 
     private String title;
     private int signatureCount;
