@@ -83,8 +83,8 @@ public class PetitionsFragment extends Fragment {
                 petitionItem.setGovResponseDetails(attributesObj.getGovernmentResponse().getDetails());
             }
             if (attributesObj.getDebate() != null) {
-                petitionItem.setGovDebateTranscript(attributesObj.getDebate().getTranscriptUrl());
-                petitionItem.setGovDebateVideo(attributesObj.getDebate().getVideoUrl());
+                petitionItem.setParlDebateTranscript(attributesObj.getDebate().getTranscriptUrl());
+                petitionItem.setParlDebateVideo(attributesObj.getDebate().getVideoUrl());
             }
             petitionItem.setState(attributesObj.getState());
             data.add(petitionItem);

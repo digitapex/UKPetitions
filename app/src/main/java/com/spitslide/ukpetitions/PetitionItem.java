@@ -12,8 +12,8 @@ public class PetitionItem implements Serializable {
     private String state;
     private String govResponseSummary;
     private String govResponseDetails;
-    private String govDebateTranscript;
-    private String govDebateVideo;
+    private String parlDebateTranscript;
+    private String parlDebateVideo;
 
     public String getTitle() {
         return title;
@@ -71,20 +71,20 @@ public class PetitionItem implements Serializable {
         this.govResponseDetails = govResponseDetails;
     }
 
-    public String getGovDebateTranscript() {
-        return govDebateTranscript;
+    public String getParlDebateTranscript() {
+        return parlDebateTranscript;
     }
 
-    public void setGovDebateTranscript(String govDebateTranscript) {
-        this.govDebateTranscript = govDebateTranscript;
+    public void setParlDebateTranscript(String parlDebateTranscript) {
+        this.parlDebateTranscript = parlDebateTranscript;
     }
 
-    public String getGovDebateVideo() {
-        return govDebateVideo;
+    public String getParlDebateVideo() {
+        return parlDebateVideo;
     }
 
-    public void setGovDebateVideo(String govDebateVideo) {
-        this.govDebateVideo = govDebateVideo;
+    public void setParlDebateVideo(String parlDebateVideo) {
+        this.parlDebateVideo = parlDebateVideo;
     }
 
 }

@@ -66,5 +66,34 @@
             android:padding="20dp"
             android:textSize="20sp"
             android:textStyle="italic" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="Parliament debate:"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/parliament_transcript"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:padding="20dp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/parliament_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:padding="20dp"
+            android:textSize="20sp" />
+
     </LinearLayout>
 </ScrollView>

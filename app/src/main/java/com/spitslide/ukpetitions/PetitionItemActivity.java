@@ -29,6 +29,8 @@ public class PetitionItemActivity extends AppCompatActivity {
         TextView signatures = findViewById(R.id.petition_signatures);
         TextView govResponseSummary = findViewById(R.id.gov_response_summary);
         TextView govResponseDetails = findViewById(R.id.gov_response_details);
+        TextView parliamentTranscript = findViewById(R.id.parliament_transcript);
+        TextView parliamentVideo = findViewById(R.id.parliament_video);
         title.setText(petitionItem.getTitle());
         background.setText(petitionItem.getBackground());
         String sigWithSeparator = String.format("%,d", petitionItem.getSignatureCount());
@@ -38,6 +40,10 @@ public class PetitionItemActivity extends AppCompatActivity {
             govResponseDetails.setText(petitionItem.getGovResponseDetails());
         } else {
 //            govResponseSummary.setText("The government did not "
+        }
+        if (petitionItem.getParlDebateTranscript() != null) {
+            parliamentTranscript.setText("Transcript:\r\n" + petitionItem.getParlDebateTranscript());
+            parliamentVideo.setText("Video:\r\n" + petitionItem.getParlDebateVideo());
         }
     }
 
