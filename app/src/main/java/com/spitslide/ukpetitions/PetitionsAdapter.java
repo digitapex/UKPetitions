@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -26,11 +25,13 @@ public class PetitionsAdapter extends RecyclerView.Adapter<PetitionsAdapter.Peti
         private Context context;
         public TextView title;
         public TextView signatures;
+        public TextView closedStatus;
         public PetitionsViewHolder(View v) {
             super(v);
             context = v.getContext();
             title = v.findViewById(R.id.title);
             signatures = v.findViewById(R.id.signatures);
+            closedStatus = v.findViewById(R.id.close_status);
             title.setOnClickListener(this);
         }
 
@@ -40,7 +41,6 @@ public class PetitionsAdapter extends RecyclerView.Adapter<PetitionsAdapter.Peti
             Intent intent = new Intent(context, PetitionItemActivity.class);
             intent.putExtra("PetitionItem", petitionItem);
             context.startActivity(intent);
-            Toast.makeText(view.getContext(), petitionItem.getTitle(), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -56,9 +56,11 @@ public class PetitionsAdapter extends RecyclerView.Adapter<PetitionsAdapter.Peti
 
     @Override
     public void onBindViewHolder(@NonNull PetitionsViewHolder viewHolder, int position) {
-        viewHolder.title.setText(data.get(position).getTitle());
-        String sigWithSeparator = String.format("%,d", data.get(position).getSignatureCount());
+        PetitionItem item = data.get(position);
+        viewHolder.title.setText(item.getTitle());
+        String sigWithSeparator = String.format("%,d", item.getSignatureCount());
         viewHolder.signatures.setText(sigWithSeparator);
+        viewHolder.closedStatus.setText(item.getState());
     }
 
     @Override

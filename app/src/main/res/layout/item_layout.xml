@@ -31,6 +31,16 @@
         android:textStyle="italic"
         android:text="123.456"/>
 
+    <TextView
+        android:id="@+id/close_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/information"
+        android:layout_below="@id/title"
+        android:padding="10dp"
+        android:textSize="12sp"/>
+
     <ImageButton
         android:id="@+id/information"
         android:layout_width="30dp"

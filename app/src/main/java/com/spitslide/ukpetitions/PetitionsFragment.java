@@ -25,6 +25,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PetitionsFragment extends Fragment {
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,14 +35,13 @@ public class PetitionsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        final RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
-
 
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -70,7 +70,7 @@ public class PetitionsFragment extends Fragment {
     }
 
     private List<PetitionItem> createPetitionList(Petitions petitions) {
-        final ArrayList<PetitionItem> data = new ArrayList<>();
+        ArrayList<PetitionItem> data = new ArrayList<>();
         for (int i = 0; i < petitions.getData().size(); i++) {
             PetitionItem petitionItem = new PetitionItem();
             Attributes attributesObj = petitions.getData().get(i).getAttributes();
@@ -78,10 +78,15 @@ public class PetitionsFragment extends Fragment {
             petitionItem.setSignatureCount(attributesObj.getSignatureCount());
             petitionItem.setBackground(attributesObj.getBackground());
             petitionItem.setAdditionalDetails(attributesObj.getAdditionalDetails());
-            petitionItem.setGovResponseSummary(attributesObj.getGovernmentResponse().getSummary());
-            petitionItem.setGovResponseDetails(attributesObj.getGovernmentResponse().getDetails());
-            petitionItem.setGovDebateTranscript(attributesObj.getDebate().getTranscriptUrl());
-            petitionItem.setGovDebateVideo(attributesObj.getDebate().getVideoUrl());
+            if (attributesObj.getGovernmentResponse() != null) {
+                petitionItem.setGovResponseSummary(attributesObj.getGovernmentResponse().getSummary());
+                petitionItem.setGovResponseDetails(attributesObj.getGovernmentResponse().getDetails());
+            }
+            if (attributesObj.getDebate() != null) {
+                petitionItem.setGovDebateTranscript(attributesObj.getDebate().getTranscriptUrl());
+                petitionItem.setGovDebateVideo(attributesObj.getDebate().getVideoUrl());
+            }
+            petitionItem.setState(attributesObj.getState());
             data.add(petitionItem);
         }
         return data;

@@ -15,11 +15,30 @@ public class PetitionItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_petitions_item);
         PetitionItem petitionItem = (PetitionItem)getIntent().getSerializableExtra("PetitionItem");
-        ((TextView)findViewById(R.id.petition_title)).setText(petitionItem.getTitle());
+        fillViewsWithData(petitionItem);
         Toolbar toolbar = findViewById(R.id.toolbar_item);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    private void fillViewsWithData(PetitionItem petitionItem) {
+        TextView title = findViewById(R.id.petition_title);
+        TextView background = findViewById(R.id.petition_background);
+        TextView signatures = findViewById(R.id.petition_signatures);
+        TextView govResponseSummary = findViewById(R.id.gov_response_summary);
+        TextView govResponseDetails = findViewById(R.id.gov_response_details);
+        title.setText(petitionItem.getTitle());
+        background.setText(petitionItem.getBackground());
+        String sigWithSeparator = String.format("%,d", petitionItem.getSignatureCount());
+        signatures.setText(sigWithSeparator + " signatures, " + petitionItem.getState());
+        if (petitionItem.getGovResponseSummary() != null) {
+            govResponseSummary.setText(petitionItem.getGovResponseSummary());
+            govResponseDetails.setText(petitionItem.getGovResponseDetails());
+        } else {
+//            govResponseSummary.setText("The government did not "
+        }
     }
 
     @Override
