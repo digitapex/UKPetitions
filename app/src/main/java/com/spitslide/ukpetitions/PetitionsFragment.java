@@ -26,9 +26,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PetitionsFragment extends Fragment {
 
+    private String state;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Bundle arguments = getArguments();
+        if (arguments != null && arguments.containsKey("state")) {
+            state = arguments.getString("state");
+        } else {
+            state = "all";
+        }
         return inflater.inflate(R.layout.fragment_petitions, container, false);
     }
 
@@ -50,7 +58,7 @@ public class PetitionsFragment extends Fragment {
                 .build();
 
         PetitionsNetwork petitionsNetwork = retrofit.create(PetitionsNetwork.class);
-        Call<Petitions> call = petitionsNetwork.getResponse();
+        Call<Petitions> call = petitionsNetwork.getResponse(state);
         call.enqueue(new Callback<Petitions>() {
             @Override
             public void onResponse(Call<Petitions> call, Response<Petitions> response) {

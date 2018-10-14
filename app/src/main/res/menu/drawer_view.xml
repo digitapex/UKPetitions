@@ -2,31 +2,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/all_petitions"
+            android:id="@+id/all"
             android:title="@string/all_petitions" />
         <item
-            android:id="@+id/open_petitions"
+            android:id="@+id/open"
             android:title="@string/open_petitions" />
         <item
-            android:id="@+id/closed_petitions"
+            android:id="@+id/closed"
             android:title="@string/closed_petitions" />
         <item
-            android:id="@+id/rejected_petitions"
+            android:id="@+id/rejected"
             android:title="@string/rejected_petitions" />
         <item
-            android:id="@+id/awaiting_government_response"
+            android:id="@+id/awaiting_response"
             android:title="@string/awaiting_government_response" />
         <item
-            android:id="@+id/government_responses"
+            android:id="@+id/with_response"
             android:title="@string/government_responses" />
         <item
-            android:id="@+id/awaiting_a_debate_in_parliament"
+            android:id="@+id/awaiting_debate"
             android:title="@string/awaiting_a_debate_in_parliament" />
         <item
-            android:id="@+id/debated_in_parliament"
+            android:id="@+id/debated"
             android:title="@string/debated_in_parliament" />
         <item
-            android:id="@+id/not_debated_in_parliament"
+            android:id="@+id/not_debated"
             android:title="@string/not_debated_in_parliament" />
     </group>
 </menu>
