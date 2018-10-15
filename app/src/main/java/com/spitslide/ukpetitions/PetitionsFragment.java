@@ -27,6 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PetitionsFragment extends Fragment {
     private boolean isLoading;
     private String state;
+    private String searchQuery;
     private int currentPage = 1;
     private List<PetitionItem> data;
     private PetitionsAdapter petitionsAdapter;
@@ -40,6 +41,10 @@ public class PetitionsFragment extends Fragment {
             state = arguments.getString("state");
         } else {
             state = "all";
+        }
+        if (arguments != null && arguments.containsKey("searchQuery")) {
+            // will be empty string if no search
+            searchQuery = arguments.getString("searchQuery");
         }
         return inflater.inflate(R.layout.fragment_petitions, container, false);
     }
@@ -70,7 +75,7 @@ public class PetitionsFragment extends Fragment {
                 .build();
 
         PetitionsNetwork petitionsNetwork = retrofit.create(PetitionsNetwork.class);
-        Call<Petitions> call = petitionsNetwork.getResponse(state, currentPage);
+        Call<Petitions> call = petitionsNetwork.getResponse(state, currentPage, searchQuery);
         call.enqueue(new Callback<Petitions>() {
             @Override
             public void onResponse(Call<Petitions> call, Response<Petitions> response) {

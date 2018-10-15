@@ -10,5 +10,5 @@ import retrofit2.http.Query;
 public interface PetitionsNetwork {
 
     @GET("petitions.json")
-    Call<Petitions> getResponse(@Query("state") String state, @Query("page") int page);
+    Call<Petitions> getResponse(@Query("state") String state, @Query("page") int page, @Query("q") String searchQuery);
 }
