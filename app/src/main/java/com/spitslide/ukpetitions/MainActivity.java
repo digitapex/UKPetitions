@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         if (!isSearchActivity) {
             // if search activity, we just want the default arrow icon, and not this hamburger
             actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        } else {
+            actionbar.setTitle(searchQuery);
         }
 
         NavigationView navigationView = findViewById(R.id.nav_view);
