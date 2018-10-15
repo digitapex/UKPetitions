@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private String searchQuery = "";
     private boolean isSearchActivity;
+    private String state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             searchQuery = intent.getStringExtra(SearchManager.QUERY);
+
+            // for extra data passed to search activity
+            Bundle appData = intent.getBundleExtra(SearchManager.APP_DATA);
+            if (appData != null) {
+                state = appData.getString("state");
+            }
             isSearchActivity = true;
         }
 
@@ -54,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                         menuItem.setChecked(true);
                         drawerLayout.closeDrawers();
 
-                        String state = getResources().getResourceEntryName(menuItem.getItemId());
+                        state = getResources().getResourceEntryName(menuItem.getItemId());
                         Bundle bundle = new Bundle();
                         bundle.putString("state", state);
                         PetitionsFragment petitionsFragment = new PetitionsFragment();
@@ -68,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         bundle.putString("searchQuery", searchQuery);
+        bundle.putString("state", state);
         PetitionsFragment petitionsFragment = new PetitionsFragment();
         petitionsFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
@@ -92,6 +100,11 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     searchItem.collapseActionView();
+                    Bundle appData = new Bundle();
+                    // passing currently selected item in drawer to search only within that context
+                    appData.putString("state", state);
+                    // https://stackoverflow.com/a/39082195/9702500
+                    searchView.setAppSearchData(appData);
                     // return false to perform default search behavior (new activity), true would mean that we handle the search ourselves
                     return false;
                 }
