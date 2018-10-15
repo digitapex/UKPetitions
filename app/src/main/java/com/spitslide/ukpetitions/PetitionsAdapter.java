@@ -12,8 +12,10 @@ import android.widget.TextView;
 import java.util.List;
 
 
-public class PetitionsAdapter extends RecyclerView.Adapter<PetitionsAdapter.PetitionsViewHolder>  {
-
+public class PetitionsAdapter extends RecyclerView.Adapter<PetitionsAdapter.PetitionsViewHolder> {
+    private static final int ITEM = 0;
+    private static final int LOADING = 1;
+    private boolean isLoadingAdded;
     private List<PetitionItem> data;
 
     public PetitionsAdapter(List<PetitionItem> data) {
@@ -26,13 +28,17 @@ public class PetitionsAdapter extends RecyclerView.Adapter<PetitionsAdapter.Peti
         public TextView title;
         public TextView signatures;
         public TextView closedStatus;
+
         public PetitionsViewHolder(View v) {
             super(v);
             context = v.getContext();
             title = v.findViewById(R.id.title);
             signatures = v.findViewById(R.id.signatures);
             closedStatus = v.findViewById(R.id.close_status);
-            title.setOnClickListener(this);
+            // TODO: a better way to see if it's a loading item?
+            if (title != null) {
+                title.setOnClickListener(this);
+            }
         }
 
         @Override
@@ -46,25 +52,65 @@ public class PetitionsAdapter extends RecyclerView.Adapter<PetitionsAdapter.Peti
     }
 
 
-
     @NonNull
     @Override
     public PetitionsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new PetitionsViewHolder(inflater.inflate(R.layout.item_layout, parent, false));
+        PetitionsViewHolder petitionsViewHolder = null;
+        switch (viewType) {
+            case ITEM:
+                petitionsViewHolder = new PetitionsViewHolder(inflater.inflate(R.layout.item_layout, parent, false));
+                break;
+            case LOADING:
+                petitionsViewHolder = new PetitionsViewHolder(inflater.inflate(R.layout.item_loading, parent, false));
+                break;
+        }
+        return petitionsViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull PetitionsViewHolder viewHolder, int position) {
-        PetitionItem item = data.get(position);
-        viewHolder.title.setText(item.getTitle());
-        String sigWithSeparator = String.format("%,d", item.getSignatureCount());
-        viewHolder.signatures.setText(sigWithSeparator);
-        viewHolder.closedStatus.setText(item.getState());
+        switch (getItemViewType(position)) {
+            case ITEM:
+                PetitionItem item = data.get(position);
+                viewHolder.title.setText(item.getTitle());
+                String sigWithSeparator = String.format("%,d", item.getSignatureCount());
+                viewHolder.signatures.setText(sigWithSeparator);
+                viewHolder.closedStatus.setText(item.getState());
+                break;
+            case LOADING:
+                break;
+        }
+
     }
 
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        // isLoadingAdded needed here, because otherwise the last item gets replaced with loading indicator
+        return (position == data.size() - 1 && isLoadingAdded) ? LOADING : ITEM;
+
+    }
+
+    public void addLoadingItem(PetitionItem petitionItem) {
+        isLoadingAdded = true;
+        data.add(petitionItem);
+        notifyDataSetChanged();
+    }
+
+    public void update(List<PetitionItem> newData) {
+        isLoadingAdded = false;
+        int last = data.size() - 1;
+        // this check needed because on first retrofit call it's -1
+        if (last > 0) {
+            // removing the loading item
+            data.remove(last);
+        }
+        data.addAll(newData);
+        notifyDataSetChanged();
     }
 }

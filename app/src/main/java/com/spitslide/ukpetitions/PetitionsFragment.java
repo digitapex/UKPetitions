@@ -25,8 +25,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PetitionsFragment extends Fragment {
-
+    private boolean isLoading;
     private String state;
+    private int currentPage = 1;
+    private List<PetitionItem> data;
+    private PetitionsAdapter petitionsAdapter;
+    private boolean isLastPage;
 
     @Nullable
     @Override
@@ -45,27 +49,41 @@ public class PetitionsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         final RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
+        data = new ArrayList<>();
+        petitionsAdapter = new PetitionsAdapter(data);
+        recyclerView.setAdapter(petitionsAdapter);
+        retrofitCall(recyclerView, layoutManager, data);
 
+
+    }
+
+    private void retrofitCall(final RecyclerView recyclerView, final LinearLayoutManager layoutManager, final List<PetitionItem> data) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://petition.parliament.uk/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         PetitionsNetwork petitionsNetwork = retrofit.create(PetitionsNetwork.class);
-        Call<Petitions> call = petitionsNetwork.getResponse(state);
+        Call<Petitions> call = petitionsNetwork.getResponse(state, currentPage);
         call.enqueue(new Callback<Petitions>() {
             @Override
             public void onResponse(Call<Petitions> call, Response<Petitions> response) {
                 Petitions petitions = response.body();
-                List<PetitionItem> data = createPetitionList(petitions);
-                PetitionsAdapter petitionsAdapter = new PetitionsAdapter(data);
-                recyclerView.setAdapter(petitionsAdapter);
+                List<PetitionItem> newData = getDataNextPage(petitions);
+                petitionsAdapter.update(newData);
+                isLastPage = false;
+                if (petitions.getLinks().getNext() == null) {
+                    isLastPage = true;
+                }
+                isLoading = false;
+                currentPage++;
+                setScrollListener(recyclerView, layoutManager, petitionsAdapter);
             }
 
             @Override
@@ -73,11 +91,31 @@ public class PetitionsFragment extends Fragment {
 
             }
         });
-
-
     }
 
-    private List<PetitionItem> createPetitionList(Petitions petitions) {
+    private void setScrollListener(RecyclerView recyclerView, final LinearLayoutManager layoutManager, final PetitionsAdapter petitionsAdapter) {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = ((LinearLayoutManager)layoutManager).findFirstVisibleItemPosition();
+                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && !isLoading && !isLastPage) {
+                    petitionsAdapter.addLoadingItem(new PetitionItem());
+                    isLoading = true;
+                    retrofitCall(recyclerView, layoutManager, data);
+                }
+            }
+        });
+    }
+
+    private List<PetitionItem> getDataNextPage(Petitions petitions) {
         ArrayList<PetitionItem> data = new ArrayList<>();
         for (int i = 0; i < petitions.getData().size(); i++) {
             PetitionItem petitionItem = new PetitionItem();
