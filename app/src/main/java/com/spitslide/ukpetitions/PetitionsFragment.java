@@ -128,6 +128,7 @@ public class PetitionsFragment extends Fragment {
                 petitionItem.setGovResponseSummary(attributesObj.getGovernmentResponse().getSummary());
                 petitionItem.setGovResponseDetails(attributesObj.getGovernmentResponse().getDetails());
             }
+            petitionItem.setParlDebateThresholdReached(attributesObj.getDebateThresholdReachedAt());
             if (attributesObj.getDebate() != null) {
                 petitionItem.setParlDebateTranscript(attributesObj.getDebate().getTranscriptUrl());
                 petitionItem.setParlDebateVideo(attributesObj.getDebate().getVideoUrl());

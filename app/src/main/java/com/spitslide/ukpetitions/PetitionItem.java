@@ -10,8 +10,9 @@ public class PetitionItem implements Serializable {
     private String background;
     private String additionalDetails;
     private String state;
-    private String govResponseSummary;
+    private String govResponseSummary = "Not available";
     private String govResponseDetails;
+    private String parlDebateThresholdReached;
     private String parlDebateTranscript;
     private String parlDebateVideo;
 
@@ -87,4 +88,11 @@ public class PetitionItem implements Serializable {
         this.parlDebateVideo = parlDebateVideo;
     }
 
+    public String getParlDebateThresholdReached() {
+        return parlDebateThresholdReached;
+    }
+
+    public void setParlDebateThresholdReached(String parlDebateThresholdReached) {
+        this.parlDebateThresholdReached = parlDebateThresholdReached;
+    }
 }

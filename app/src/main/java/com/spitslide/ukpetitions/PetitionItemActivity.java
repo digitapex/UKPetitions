@@ -38,12 +38,13 @@ public class PetitionItemActivity extends AppCompatActivity {
         if (petitionItem.getGovResponseSummary() != null) {
             govResponseSummary.setText(petitionItem.getGovResponseSummary());
             govResponseDetails.setText(petitionItem.getGovResponseDetails());
-        } else {
-//            govResponseSummary.setText("The government did not "
         }
         if (petitionItem.getParlDebateTranscript() != null) {
             parliamentTranscript.setText("Transcript:\r\n" + petitionItem.getParlDebateTranscript());
             parliamentVideo.setText("Video:\r\n" + petitionItem.getParlDebateVideo());
+        } else if (petitionItem.getParlDebateThresholdReached() != null) {
+            parliamentTranscript.setText("Parliament will consider this for a debate.");
+            parliamentVideo.setText("Parliament considers all petitions that get more than 100,000 signatures for a debate.");
         }
     }
 
