@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.spitslide.ukpetitions.data.Attributes;
@@ -35,6 +36,7 @@ public class PetitionsFragment extends Fragment {
     private PetitionsAdapter petitionsAdapter;
     private boolean isLastPage;
     private TextView noResults;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -61,6 +63,7 @@ public class PetitionsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         final RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         noResults = view.findViewById(R.id.no_results);
+        progressBar = view.findViewById(R.id.loading);
         recyclerView.setHasFixedSize(true);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -71,6 +74,7 @@ public class PetitionsFragment extends Fragment {
         data = new ArrayList<>();
         petitionsAdapter = new PetitionsAdapter(data);
         recyclerView.setAdapter(petitionsAdapter);
+        progressBar.setVisibility(View.VISIBLE);
         retrofitCall(recyclerView, layoutManager, data);
 
 
@@ -87,6 +91,7 @@ public class PetitionsFragment extends Fragment {
         call.enqueue(new Callback<Petitions>() {
             @Override
             public void onResponse(Call<Petitions> call, Response<Petitions> response) {
+                progressBar.setVisibility(View.GONE);
                 Petitions petitions = response.body();
                 List<PetitionItem> newData = getDataNextPage(petitions);
                 petitionsAdapter.update(newData);
