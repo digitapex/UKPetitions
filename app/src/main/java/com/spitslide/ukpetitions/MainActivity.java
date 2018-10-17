@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private String searchQuery = "";
     private boolean isSearchActivity;
     private String state;
+    private String archived = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
             Bundle appData = intent.getBundleExtra(SearchManager.APP_DATA);
             if (appData != null) {
                 state = appData.getString("state");
+                archived = appData.getString("archived");
             }
             isSearchActivity = true;
         }
@@ -54,18 +56,24 @@ public class MainActivity extends AppCompatActivity {
         }
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.getMenu().getItem(0).setChecked(true);
+        navigationView.getMenu().findItem(R.id.all).setChecked(true);
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        state = getResources().getResourceEntryName(menuItem.getItemId());
+                        if (menuItem.getGroupId() == R.id.archived) {
+                            // menu items can't have the same id and can't have tags, but our items use the same query parameters in archived context, so we just remove last dummy character
+                            state = state.substring(0, state.length() - 1);
+                            archived = "archived";
+                        }
                         menuItem.setChecked(true);
                         drawerLayout.closeDrawers();
 
-                        state = getResources().getResourceEntryName(menuItem.getItemId());
                         Bundle bundle = new Bundle();
                         bundle.putString("state", state);
+                        bundle.putString("archived", archived);
                         PetitionsFragment petitionsFragment = new PetitionsFragment();
                         petitionsFragment.setArguments(bundle);
                         getSupportFragmentManager().beginTransaction()
@@ -78,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("searchQuery", searchQuery);
         bundle.putString("state", state);
+        bundle.putString("archived", archived);
         PetitionsFragment petitionsFragment = new PetitionsFragment();
         petitionsFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
@@ -106,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     Bundle appData = new Bundle();
                     // passing currently selected item in drawer to search only within that context
                     appData.putString("state", state);
+                    appData.putString("archived", archived);
                     // https://stackoverflow.com/a/39082195/9702500
                     searchView.setAppSearchData(appData);
                     // return false to perform default search behavior (new activity), true would mean that we handle the search ourselves

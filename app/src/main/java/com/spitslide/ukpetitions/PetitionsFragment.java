@@ -48,6 +48,10 @@ public class PetitionsFragment extends Fragment {
             // will be empty string if no search
             searchQuery = arguments.getString("searchQuery");
         }
+        if (arguments != null && arguments.containsKey("archived")) {
+            // will be empty string if from current petitions drawer item
+            archived = arguments.getString("archived");
+        }
         return inflater.inflate(R.layout.fragment_petitions, container, false);
     }
 
@@ -78,7 +82,7 @@ public class PetitionsFragment extends Fragment {
                 .build();
 
         PetitionsNetwork petitionsNetwork = retrofit.create(PetitionsNetwork.class);
-        Call<Petitions> call = petitionsNetwork.getResponse(state, currentPage, searchQuery);
+        Call<Petitions> call = petitionsNetwork.getResponse(archived, state, currentPage, searchQuery);
         call.enqueue(new Callback<Petitions>() {
             @Override
             public void onResponse(Call<Petitions> call, Response<Petitions> response) {

@@ -1,32 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/all"
-            android:title="@string/all_petitions" />
-        <item
-            android:id="@+id/open"
-            android:title="@string/open_petitions" />
-        <item
-            android:id="@+id/closed"
-            android:title="@string/closed_petitions" />
-        <item
-            android:id="@+id/rejected"
-            android:title="@string/rejected_petitions" />
-        <item
-            android:id="@+id/awaiting_response"
-            android:title="@string/awaiting_government_response" />
-        <item
-            android:id="@+id/with_response"
-            android:title="@string/government_responses" />
-        <item
-            android:id="@+id/awaiting_debate"
-            android:title="@string/awaiting_a_debate_in_parliament" />
-        <item
-            android:id="@+id/debated"
-            android:title="@string/debated_in_parliament" />
-        <item
-            android:id="@+id/not_debated"
-            android:title="@string/not_debated_in_parliament" />
-    </group>
+    <!--<group android:checkableBehavior="single">-->
+    <item android:title="Current petitions:">
+        <menu>
+            <group android:checkableBehavior="single"
+                android:id="@+id/current">
+                <item
+                    android:id="@+id/all"
+                    android:title="@string/all_petitions" />
+                <item
+                    android:id="@+id/open"
+                    android:title="@string/open_petitions" />
+                <item
+                    android:id="@+id/closed"
+                    android:title="@string/closed_petitions" />
+                <item
+                    android:id="@+id/rejected"
+                    android:title="@string/rejected_petitions" />
+                <item
+                    android:id="@+id/awaiting_response"
+                    android:title="@string/awaiting_government_response" />
+                <item
+                    android:id="@+id/with_response"
+                    android:title="@string/government_responses" />
+                <item
+                    android:id="@+id/awaiting_debate"
+                    android:title="@string/awaiting_a_debate_in_parliament" />
+                <item
+                    android:id="@+id/debated"
+                    android:title="@string/debated_in_parliament" />
+                <item
+                    android:id="@+id/not_debated"
+                    android:title="@string/not_debated_in_parliament" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Archived petitions:">
+        <menu>
+            <group android:checkableBehavior="single"
+                android:id="@+id/archived">
+                <item
+                    android:id="@+id/all2"
+                    android:title="@string/all_petitions" />
+                <item
+                    android:id="@+id/published2"
+                    android:title="@string/published_petitions" />
+                <item
+                    android:id="@+id/rejected2"
+                    android:title="@string/rejected_petitions" />
+                <item
+                    android:id="@+id/with_response2"
+                    android:title="@string/government_responses" />
+                <item
+                    android:id="@+id/debated2"
+                    android:title="@string/debated_in_parliament" />
+                <item
+                    android:id="@+id/not_debated2"
+                    android:title="@string/not_debated_in_parliament" />
+            </group>
+        </menu>
+    </item>
+    <!--</group>-->
 </menu>

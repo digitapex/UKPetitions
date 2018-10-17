@@ -9,4 +9,5 @@
     <string name="awaiting_a_debate_in_parliament">Awaiting a debate in Parliament</string>
     <string name="debated_in_parliament">Debated in Parliament</string>
     <string name="not_debated_in_parliament">Not debated in Parliament</string>
+    <string name="published_petitions">Published petitions</string>
 </resources>
