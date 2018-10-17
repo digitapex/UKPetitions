@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         if (!isSearchActivity) {
             // if search activity, we just want the default arrow icon, and not this hamburger
-            actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+            actionbar.setHomeAsUpIndicator(R.drawable.hamburger);
         } else {
             actionbar.setTitle(searchQuery);
         }
@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         final SearchView searchView = (SearchView) searchItem.getActionView();
         if (searchView != null) {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            searchView.setQueryHint("Search here...");
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
