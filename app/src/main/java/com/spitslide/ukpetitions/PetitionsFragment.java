@@ -28,6 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PetitionsFragment extends Fragment {
     private boolean isLoading;
     private String state;
+    private String archived = "";
     private String searchQuery;
     private int currentPage = 1;
     private List<PetitionItem> data;
