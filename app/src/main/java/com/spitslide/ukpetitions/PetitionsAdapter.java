@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class PetitionsAdapter extends RecyclerView.Adapter<PetitionsAdapter.Peti
         public TextView title;
         public TextView signatures;
         public TextView closedStatus;
+        public RelativeLayout recyclerItem;
 
         public PetitionsViewHolder(View v) {
             super(v);
@@ -35,9 +37,9 @@ public class PetitionsAdapter extends RecyclerView.Adapter<PetitionsAdapter.Peti
             title = v.findViewById(R.id.title);
             signatures = v.findViewById(R.id.signatures);
             closedStatus = v.findViewById(R.id.close_status);
-            // TODO: a better way to see if it's a loading item?
-            if (title != null) {
-                title.setOnClickListener(this);
+            recyclerItem = v.findViewById(R.id.recycler_item);
+            if (recyclerItem != null) {
+                recyclerItem.setOnClickListener(this);
             }
         }
 
