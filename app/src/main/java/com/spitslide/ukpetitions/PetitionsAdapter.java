@@ -75,7 +75,7 @@ public class PetitionsAdapter extends RecyclerView.Adapter<PetitionsAdapter.Peti
                 PetitionItem item = data.get(position);
                 viewHolder.title.setText(item.getTitle());
                 String sigWithSeparator = String.format("%,d", item.getSignatureCount());
-                viewHolder.signatures.setText(sigWithSeparator);
+                viewHolder.signatures.setText(sigWithSeparator + " signatures");
                 viewHolder.closedStatus.setText(item.getState());
                 break;
             case LOADING:
