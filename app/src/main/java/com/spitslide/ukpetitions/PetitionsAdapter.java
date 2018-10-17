@@ -84,6 +84,10 @@ public class PetitionsAdapter extends RecyclerView.Adapter<PetitionsAdapter.Peti
 
     }
 
+    public List<PetitionItem> getCurrentData() {
+        return data;
+    }
+
     @Override
     public int getItemCount() {
         return data.size();
@@ -93,7 +97,6 @@ public class PetitionsAdapter extends RecyclerView.Adapter<PetitionsAdapter.Peti
     public int getItemViewType(int position) {
         // isLoadingAdded needed here, because otherwise the last item gets replaced with loading indicator
         return (position == data.size() - 1 && isLoadingAdded) ? LOADING : ITEM;
-
     }
 
     public void addLoadingItem(PetitionItem petitionItem) {

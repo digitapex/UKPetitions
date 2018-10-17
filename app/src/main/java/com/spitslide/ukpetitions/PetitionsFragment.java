@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.spitslide.ukpetitions.data.Attributes;
 import com.spitslide.ukpetitions.data.Petitions;
@@ -32,6 +33,7 @@ public class PetitionsFragment extends Fragment {
     private List<PetitionItem> data;
     private PetitionsAdapter petitionsAdapter;
     private boolean isLastPage;
+    private TextView noResults;
 
     @Nullable
     @Override
@@ -53,6 +55,7 @@ public class PetitionsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        noResults = view.findViewById(R.id.no_results);
         recyclerView.setHasFixedSize(true);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -82,6 +85,9 @@ public class PetitionsFragment extends Fragment {
                 Petitions petitions = response.body();
                 List<PetitionItem> newData = getDataNextPage(petitions);
                 petitionsAdapter.update(newData);
+                if (petitionsAdapter.getCurrentData().size() == 0) {
+                    noResults.setVisibility(View.VISIBLE);
+                }
                 isLastPage = false;
                 if (petitions.getLinks().getNext() == null) {
                     isLastPage = true;
