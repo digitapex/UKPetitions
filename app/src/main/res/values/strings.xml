@@ -10,4 +10,5 @@
     <string name="debated_in_parliament">Debated in Parliament</string>
     <string name="not_debated_in_parliament">Not debated in Parliament</string>
     <string name="published_petitions">Published petitions</string>
+    <string name="not_available">Not available</string>
 </resources>
