@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             actionbar.setTitle(searchQuery);
         }
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        final NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.getMenu().findItem(R.id.all).setChecked(true);
 
         navigationView.setNavigationItemSelectedListener(
@@ -70,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             archived = "";
                         }
-                        menuItem.setChecked(true);
+
+                        // checkableBehavior="single" in xml apparently doesn't work across multiple groups, so we first remove selection on "all" in case it's last selected (because we selected it on start)
+                        navigationView.getMenu().findItem(R.id.all).setChecked(false);
+                        navigationView.setCheckedItem(menuItem.getItemId());
                         drawerLayout.closeDrawers();
 
                         Bundle bundle = new Bundle();
