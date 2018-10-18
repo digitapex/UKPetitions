@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
                             // menu items can't have the same id and can't have tags, but our items use the same query parameters in archived context, so we just remove last dummy character
                             state = state.substring(0, state.length() - 1);
                             archived = "archived";
+                        } else {
+                            archived = "";
                         }
                         menuItem.setChecked(true);
                         drawerLayout.closeDrawers();
