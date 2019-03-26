@@ -2,7 +2,7 @@
 
 Android app for browsing and searching UK Government and Parliament petitions available from https://petition.parliament.uk/.
 
-Try the .apk under [releases](https://github.com/digitapex/DerDieDas/releases) or install it from Google Play Store.
+Try the .apk under [releases](https://github.com/digitapex/UKPetitions/releases) or install it from Google Play Store.
 
 <a href='https://play.google.com/store/apps/details?id=com.spitslide.ukpetitions'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height='75px'/></a>
 
