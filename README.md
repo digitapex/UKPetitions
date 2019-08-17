@@ -1,4 +1,4 @@
-# Der Die Das
+# UK Petitions
 
 Android app for browsing and searching UK Government and Parliament petitions available from https://petition.parliament.uk/.
 
