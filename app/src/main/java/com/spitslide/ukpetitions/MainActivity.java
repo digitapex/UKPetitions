@@ -1,8 +1,10 @@
 package com.spitslide.ukpetitions;
 
 import android.app.SearchManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -146,6 +148,24 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 }
                 return true;
+            case R.id.share:
+                Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.recommend_app));
+                shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.recommend_text));
+                startActivity(Intent.createChooser(shareIntent, getString(R.string.recommend_title)));
+                break;
+            case R.id.rate:
+                Uri uriMarket = Uri.parse(getString(R.string.rate_app_market));
+                Uri uriWeb = Uri.parse(getString(R.string.rate_app_web));
+                Intent rateIntentMarket = new Intent(Intent.ACTION_VIEW, uriMarket);
+                Intent rateIntentWeb = new Intent(Intent.ACTION_VIEW, uriWeb);
+                try {
+                    startActivity(rateIntentMarket);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(rateIntentWeb);
+                }
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

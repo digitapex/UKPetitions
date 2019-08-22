@@ -7,6 +7,9 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:textColor">@android:color/black</item>
+        <!-- changes overflow menu items background because the toolbar is Dark.ActionBar in activity_main -->
+        <!-- https://stackoverflow.com/a/28996945/9702500 -->
+        <item name="android:itemBackground">@android:color/white</item>
     </style>
 
 </resources>

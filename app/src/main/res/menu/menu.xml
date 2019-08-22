@@ -8,4 +8,12 @@
         app:showAsAction="always|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView"
         android:title="Search"/>
+    <item
+        android:id="@+id/share"
+        app:showAsAction="never"
+        android:title="Share"/>
+    <item
+        android:id="@+id/rate"
+        app:showAsAction="never"
+        android:title="Rate"/>
 </menu>
