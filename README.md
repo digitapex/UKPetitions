@@ -21,6 +21,5 @@ Try the .apk under [releases](https://github.com/digitapex/UKPetitions/releases)
 <p align="center">
   <img src="/screenshots/Screenshot_07.png" width="250">
   <img src="/screenshots/Screenshot_08.png" width="250">
-  <img src="/screenshots/Screenshot_09.png" width="250">
 </p>
 <br>
