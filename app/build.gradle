@@ -5,11 +5,14 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.spitslide.ukpetitions"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
-        versionCode 3
-        versionName "1.02"
+        versionCode 4
+        versionName "1.03"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [ ADMOB_APPLICATION_ID:getAdmobApplicationId() ]
+        resValue 'string', 'ADMOB_ADUNIT_ID', getAdmobAdUnitId()
+        buildConfigField "String", "ADMOB_PUBLISHER_ID", "\""+getAdMobPublisherId()+"\""
     }
     buildTypes {
         release {
@@ -27,7 +30,27 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation 'com.google.android.gms:play-services-ads:19.1.0'
+    implementation 'com.google.android.ads.consent:consent-library:1.0.8'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+}
+
+def getAdmobApplicationId(){
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('local.properties')))
+    return props['ADMOB_APPLICATION_ID']
+}
+
+def getAdmobAdUnitId(){
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('local.properties')))
+    return props['ADMOB_ADUNIT_ID']
+}
+
+def getAdMobPublisherId(){
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('local.properties')))
+    return props['ADMOB_PUBLISHER_ID']
 }

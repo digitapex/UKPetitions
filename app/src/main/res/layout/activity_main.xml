@@ -6,8 +6,12 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
     <FrameLayout
         android:id="@+id/content_frame"
+        android:layout_above="@id/adview1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <androidx.appcompat.widget.Toolbar
@@ -17,6 +21,15 @@
         android:background="?attr/colorPrimary"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
     </FrameLayout>
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adview1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/ADMOB_ADUNIT_ID"/>
+    </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"

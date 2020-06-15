@@ -16,4 +16,9 @@
         android:id="@+id/rate"
         app:showAsAction="never"
         android:title="Rate"/>
+    <item
+        android:id="@+id/consent"
+        app:showAsAction="never"
+        android:visible="false"
+        android:title="Consent"/>
 </menu>

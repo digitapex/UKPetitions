@@ -17,6 +17,11 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
+
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isSearchActivity;
     private String state;
     private String archived = "";
+    private Consent consent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +106,23 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.content_frame, petitionsFragment)
                 .commit();
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        consent = new Consent(this);
+        consent.checkForConsentAndDisplayAds(false);
+        invalidateOptionsMenu();
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (consent.shouldAddConsentToMenu) {
+            menu.findItem(R.id.consent).setVisible(true);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -165,6 +188,10 @@ public class MainActivity extends AppCompatActivity {
                 } catch (ActivityNotFoundException e) {
                     startActivity(rateIntentWeb);
                 }
+                break;
+            case R.id.consent:
+                consent = new Consent(MainActivity.this);
+                consent.checkForConsentAndDisplayAds(true);
                 break;
         }
         return super.onOptionsItemSelected(item);
