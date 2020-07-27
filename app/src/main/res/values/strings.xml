@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UK Petitions</string>
+    <string name="app_name">Browse Petitions in the UK</string>
     <string name="all_petitions">All petitions</string>
     <string name="open_petitions">Open petitions</string>
     <string name="closed_petitions">Closed petitions</string>
@@ -12,8 +12,8 @@
     <string name="published_petitions">Published petitions</string>
     <string name="not_available">Not available</string>
     <string name="recommend_app">UK Petitions</string>
-    <string name="recommend_text">App to browse UK Petitions: https://play.google.com/store/apps/details?id=com.spitslide.ukpetitions</string>
+    <string name="recommend_text">App to browse UK Petitions: https://play.google.com/store/apps/details?id=com.spitslide.petitionsbrowseruk</string>
     <string name="recommend_title">Recommend this app</string>
-    <string name="rate_app_market">market://details?id=com.spitslide.ukpetitions</string>
-    <string name="rate_app_web">http://play.google.com/store/apps/details?id=com.spitslide.ukpetitions</string>
+    <string name="rate_app_market">market://details?id=com.spitslide.petitionsbrowseruk</string>
+    <string name="rate_app_web">http://play.google.com/store/apps/details?id=com.spitslide.petitionsbrowseruk</string>
 </resources>

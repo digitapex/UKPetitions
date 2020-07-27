@@ -4,9 +4,9 @@ android {
     buildToolsVersion "28.0.2"
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.spitslide.ukpetitions"
+        applicationId "com.spitslide.petitionsbrowseruk"
         minSdkVersion 16
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 4
         versionName "1.03"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
